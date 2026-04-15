@@ -1,12 +1,16 @@
 {
-  "name": "@appdoctor/react-native",
+  "name": "@appdoctor-rn",
   "version": "0.1.0",
   "description": "Lightweight React Native performance and observability SDK",
   "license": "MIT",
   "author": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/appdoctor/react-native-sdk.git"
+    "url": "git+https://github.com/scryptwiz/appdoctor-rn.git"
+  },
+  "homepage": "https://github.com/scryptwiz/appdoctor-rn#readme",
+  "bugs": {
+    "url": "https://github.com/scryptwiz/appdoctor-rn/issues"
   },
   "keywords": [
     "react-native",
