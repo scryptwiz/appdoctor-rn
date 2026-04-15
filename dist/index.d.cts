@@ -99,11 +99,13 @@ declare class AppDoctorClient {
 
 declare function shouldSample(rate: number): boolean;
 
-declare function createConsoleTransport(options?: {
+interface ConsoleTransportOptions {
     label?: string;
     slowScreenThresholdMs?: number;
     slowApiThresholdMs?: number;
-}): Transport;
+    format?: "pretty" | "raw";
+}
+declare function createConsoleTransport(options?: ConsoleTransportOptions): Transport;
 
 interface HttpTransportOptions {
     url: string;
@@ -184,4 +186,4 @@ interface UseTrackRenderOptions {
  */
 declare function useTrackRender(componentName: string, options?: UseTrackRenderOptions): void;
 
-export { AppDoctorClient, type AppDoctorConfig, AppDoctorContext, type AppDoctorEmitInput, type AppDoctorEvent, type AppDoctorEventName, AppDoctorProvider, type AppDoctorProviderProps, type AxiosInstrumentationOptions, type AxiosLike, type EventContext, type HttpTransportOptions, type NetworkRequestEvent, type RenderCountEvent, type ScreenLoadEvent, type SdkErrorEvent, type Transport, createConsoleTransport, createHttpTransport, createNavigationStateListener, getActiveRouteName, instrumentAxios, shouldSample, trackApi, useAppDoctor, useTrackRender, useTrackScreen };
+export { AppDoctorClient, type AppDoctorConfig, AppDoctorContext, type AppDoctorEmitInput, type AppDoctorEvent, type AppDoctorEventName, AppDoctorProvider, type AppDoctorProviderProps, type AxiosInstrumentationOptions, type AxiosLike, type ConsoleTransportOptions, type EventContext, type HttpTransportOptions, type NetworkRequestEvent, type RenderCountEvent, type ScreenLoadEvent, type SdkErrorEvent, type Transport, createConsoleTransport, createHttpTransport, createNavigationStateListener, getActiveRouteName, instrumentAxios, shouldSample, trackApi, useAppDoctor, useTrackRender, useTrackScreen };

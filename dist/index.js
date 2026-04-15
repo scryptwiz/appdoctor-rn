@@ -234,6 +234,7 @@ function createConsoleTransport(options = {}) {
   const label = options.label ?? "AppDoctor";
   const slowScreenThresholdMs = options.slowScreenThresholdMs ?? 1e3;
   const slowApiThresholdMs = options.slowApiThresholdMs ?? 800;
+  const format = options.format ?? "pretty";
   function toHint(event) {
     if (event.name === "screen_load" && event.phase === "ready" && event.durationMs >= slowScreenThresholdMs) {
       return `Slow screen "${event.screen}" (${event.durationMs}ms). Check expensive effects and repeated renders.`;
@@ -243,6 +244,19 @@ function createConsoleTransport(options = {}) {
     }
     return void 0;
   }
+  function toPrettyLine(event) {
+    if (event.name === "screen_load") {
+      return `screen ${event.screen} phase=${event.phase} duration=${event.durationMs}ms`;
+    }
+    if (event.name === "api_request") {
+      const status = event.status ?? "n/a";
+      return `api ${event.method} ${event.url} status=${status} duration=${event.durationMs}ms success=${event.success}`;
+    }
+    if (event.name === "render_event") {
+      return `render ${event.component} count=${event.renderCount}`;
+    }
+    return `sdk_error ${event.message}`;
+  }
   return {
     send(events) {
       if (events.length === 0) return;
@@ -251,8 +265,13 @@ function createConsoleTransport(options = {}) {
         if (hint) {
           console.warn(`[${label}] ${hint}`);
         }
+        if (format === "pretty") {
+          console.log(`[${label}] ${toPrettyLine(event)}`);
+        }
       }
-      console.log(`[${label}]`, events);
+      if (format === "raw") {
+        console.log(`[${label}]`, events);
+      }
     }
   };
 }
