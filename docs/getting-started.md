@@ -5,7 +5,7 @@ Target time: about five minutes. Use a **standalone** Expo or bare React Native 
 ## 1. Install
 
 ```bash
-npm install @appdoctor/react-native
+npm install appdoctor-rn
 ```
 
 Peers: `react`, `react-native`. For automatic screen events from the navigation tree, also install `@react-navigation/native` (v6+).
@@ -18,7 +18,7 @@ At the root (above navigation if you use React Navigation):
 import {
   AppDoctorProvider,
   createConsoleTransport,
-} from "@appdoctor/react-native";
+} from "appdoctor-rn";
 
 export function Root() {
   return (
@@ -44,7 +44,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import {
   createNavigationStateListener,
   useAppDoctor,
-} from "@appdoctor/react-native";
+} from "appdoctor-rn";
 import { useMemo } from "react";
 
 function Nav({ children }: { children: React.ReactNode }) {

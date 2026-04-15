@@ -5,7 +5,7 @@ Lightweight performance and observability for React Native: screen timing, netwo
 ## Install
 
 ```bash
-npm install @appdoctor/react-native
+npm install appdoctor-rn
 ```
 
 Peer dependencies: `react`, `react-native`. Optional: `@react-navigation/native` for stack/tab navigation listeners.
@@ -23,7 +23,7 @@ import {
   createConsoleTransport,
   createNavigationStateListener,
   useAppDoctor,
-} from "@appdoctor/react-native";
+} from "appdoctor-rn";
 import { useMemo, type ReactNode } from "react";
 
 function AppShell({ children }: { children: ReactNode }) {
