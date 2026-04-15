@@ -1,15 +1,19 @@
 import type { AppDoctorEvent, Transport } from "../core/types.js";
 
+export interface ConsoleTransportOptions {
+  label?: string;
+  slowScreenThresholdMs?: number;
+  slowApiThresholdMs?: number;
+  format?: "pretty" | "raw";
+}
+
 export function createConsoleTransport(
-  options: {
-    label?: string;
-    slowScreenThresholdMs?: number;
-    slowApiThresholdMs?: number;
-  } = {},
+  options: ConsoleTransportOptions = {},
 ): Transport {
   const label = options.label ?? "AppDoctor";
   const slowScreenThresholdMs = options.slowScreenThresholdMs ?? 1000;
   const slowApiThresholdMs = options.slowApiThresholdMs ?? 800;
+  const format = options.format ?? "pretty";
 
   function toHint(event: AppDoctorEvent): string | undefined {
     if (
@@ -25,6 +29,20 @@ export function createConsoleTransport(
     return undefined;
   }
 
+  function toPrettyLine(event: AppDoctorEvent): string {
+    if (event.name === "screen_load") {
+      return `screen ${event.screen} phase=${event.phase} duration=${event.durationMs}ms`;
+    }
+    if (event.name === "api_request") {
+      const status = event.status ?? "n/a";
+      return `api ${event.method} ${event.url} status=${status} duration=${event.durationMs}ms success=${event.success}`;
+    }
+    if (event.name === "render_event") {
+      return `render ${event.component} count=${event.renderCount}`;
+    }
+    return `sdk_error ${event.message}`;
+  }
+
   return {
     send(events: readonly AppDoctorEvent[]): void {
       if (events.length === 0) return;
@@ -33,8 +51,13 @@ export function createConsoleTransport(
         if (hint) {
           console.warn(`[${label}] ${hint}`);
         }
+        if (format === "pretty") {
+          console.log(`[${label}] ${toPrettyLine(event)}`);
+        }
       }
-      console.log(`[${label}]`, events);
+      if (format === "raw") {
+        console.log(`[${label}]`, events);
+      }
     },
   };
 }

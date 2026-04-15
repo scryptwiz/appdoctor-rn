@@ -14,7 +14,10 @@ export { AppDoctorClient } from "./core/client.js";
 export { shouldSample } from "./core/sampling.js";
 
 export { createConsoleTransport, createHttpTransport } from "./transports/index.js";
-export type { HttpTransportOptions } from "./transports/index.js";
+export type {
+  ConsoleTransportOptions,
+  HttpTransportOptions,
+} from "./transports/index.js";
 
 export { getActiveRouteName } from "./navigation/route-name.js";
 export { createNavigationStateListener } from "./navigation/create-navigation-listener.js";
