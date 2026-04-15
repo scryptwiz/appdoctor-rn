@@ -1,6 +1,6 @@
 {
   "name": "appdoctor-rn",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lightweight React Native performance and observability SDK",
   "license": "MIT",
   "author": "",
