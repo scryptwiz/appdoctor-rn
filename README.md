@@ -10,6 +10,10 @@ npm install appdoctor-rn
 
 Peer dependencies: `react`, `react-native`. Optional: `@react-navigation/native` for stack/tab navigation listeners.
 
+## Package
+
+- npm: [appdoctor-rn](https://www.npmjs.com/package/appdoctor-rn)
+
 ## Quick start
 
 1. Wrap your app with `AppDoctorProvider` and pass transports (for example `createConsoleTransport()`).
